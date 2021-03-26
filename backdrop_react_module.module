@@ -1,2 +1,37 @@
 <?php
-    
+
+    /** Implements hook_permission().
+     *  Define permissions for your application.
+     */
+    function backdrop_react_module_permission() {
+        $permissions = array(
+            'administer react app' => array(
+                'title' => t('Administer sample React app.')),
+            'react app user' => array(
+                'title' => t('Authorized user functions'),
+            ),
+        );
+        return $permissions;
+    }
+
+    /**
+     * Implements hook_menu().
+     * Define your application's routes using hook_menu.
+     * Define Application endpoints: POST, GET available.
+     */
+    function backdrop_react_module_menu() {
+        $items['my-react-app'] = array(
+            'title' => t('Sample React Application'),
+            'description' => t('Sample application built in React for Backdrop CMS.'),
+            'page callback' => 'react_application_main_controller',
+            'access arguments' => array('react app user'),
+            
+        );
+
+        return $items;
+    }
+
+    function react_application_main_controller() {
+        $page = "<h1>Hello Html</h1>";
+        return $page;
+    }

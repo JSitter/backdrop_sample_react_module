@@ -5,9 +5,9 @@
      */
     function backdrop_react_module_permission() {
         $permissions = array(
-            'administer react app' => array(
+            'administer sample react app' => array(
                 'title' => t('Administer sample React app.')),
-            'react app user' => array(
+            'sample react app user' => array(
                 'title' => t('Authorized user functions'),
             ),
         );
@@ -16,22 +16,54 @@
 
     /**
      * Implements hook_menu().
+     * AKA: Routes
      * Define your application's routes using hook_menu.
      * Define Application endpoints: POST, GET available.
+     * Output as Json Available with: 'delivery callback' => 'backdrop_json_output',
      */
     function backdrop_react_module_menu() {
-        $items['my-react-app'] = array(
-            'title' => t('Sample React Application'),
+        $items['sample-react-app'] = array(
+            'access arguments' => array('sample react app user'),
             'description' => t('Sample application built in React for Backdrop CMS.'),
-            'page callback' => 'react_application_main_controller',
-            'access arguments' => array('react app user'),
-            
+            'page callback' => 'sample_react_application_main_controller',
+            'title' => t('Sample React Application'),
+        );
+
+        $items['sample-react-admin'] = array(
+            'access arguments' => 'administer sample react app',
+            'description' => t('Sample administration page.'),
+            'page callback' => 'sample_react_application_admin_controller',
+            'title' => t('Sample Admin Page'),
+        );
+
+        $items['sample-react-shared'] = array(
+            'access arguments' => 'access content',
+            'description' => t('Sample administration page.'),
+            'page callback' => 'sample_react_application_shared_controller',
+            'title' => t('Sample Shared Page'),
         );
 
         return $items;
     }
 
-    function react_application_main_controller() {
+    /**
+     * Application API Controllers
+     */
+
+    function sample_react_application_main_controller() {
+        // Page visible only to authenticated users
         $page = "<h1>Hello Html</h1>";
         return $page;
+    }
+
+    function sample_react_application_admin_controller() {
+        // Page visible only to admin users
+        $page = "<h1>Hello Admin</h1>";
+        return $page;
+    }
+
+    function sample_react_application_shared_controller() {
+        // Page with shared authenticated and unauthenticated user experience.
+        $page = "<div>Hello HTML</div>";
+
     }

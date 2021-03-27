@@ -3,7 +3,7 @@
     /** Implements hook_permission().
      *  Define permissions for your application.
      */
-    function backdrop_react_module_permission() {
+    function backdrop_sample_react_module_permission() {
         $permissions = array(
             'administer sample react app' => array(
                 'title' => t('Administer sample React app.')),
@@ -21,7 +21,7 @@
      * Define Application endpoints: POST, GET available.
      * Output as Json Available with: 'delivery callback' => 'backdrop_json_output',
      */
-    function backdrop_react_module_menu() {
+    function backdrop_sample_react_module_menu() {
         $items['sample-react-app'] = array(
             'access arguments' => array('sample react app user'),
             'description' => t('Sample application built in React for Backdrop CMS.'),

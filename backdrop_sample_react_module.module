@@ -52,7 +52,35 @@
 
     function sample_react_application_main_controller() {
         // Page visible only to authenticated users
-        $page = "<h1>Hello Html</h1>";
+        $module_path = backdrop_get_path('module', 'backdrop_sample_react_module');
+        $js_path = $module_path . '/js/react/sampleapp/build/app.bundle.js';
+        $css_path = $module_path . '/css/styles.css';
+        $page = array();
+        $page['content'] = array(
+            '#type' => 'markup',
+            '#markup' => '<div id="myapp">Hello Html</div>',
+            '#attached' => array(
+                'js' => array(
+                    array(
+                        'data' => $js_path,
+                        'every_page' => FALSE,
+                        'group' => JS_THEME,
+                        'type' => 'file',
+                        'preprocess' => FALSE,
+                        'scope' => 'footer',
+                    )
+                ),
+                'css' => array(
+                    array(
+                        'data' => $css_path,
+                        'every_page' => FALSE,
+                        'group' => CSS_THEME,
+                        'type' => 'file',
+                        'preprocess' => FALSE,
+                        )
+                    ),
+                ),
+            );
         return $page;
     }
 
